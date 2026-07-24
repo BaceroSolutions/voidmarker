@@ -46,6 +46,23 @@ import "../styles/styles.css"; // Import your CSS here
 
 		<link rel="canonical" href="https://bacerosolutions.com" />
 		<link rel="icon" type="image/x-icon" href="favicon.ico" />
+		<script is:inline>
+			const theme = (() => {
+				if (
+					typeof localStorage !== "undefined" &&
+					localStorage.getItem("theme")
+				) {
+					return localStorage.getItem("theme");
+				}
+				if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+					return "dark";
+				}
+				return "light";
+			})();
+
+			// Let CSS do the rest of the work
+			document.documentElement.setAttribute("data-theme", theme);
+		</script>
 	</head>
 
 	<body>
@@ -85,6 +102,52 @@ import "../styles/styles.css"; // Import your CSS here
 					<li><a href="#how-it-works">How It Works</a></li>
 					<li><a href="#pricing">Pricing</a></li>
 					<li><a href="#cta" class="nav-cta">Request Demo</a></li>
+					<li>
+						<button id="theme-toggle" aria-label="Toggle theme">
+							<svg
+								id="theme-toggle-sun"
+								class="theme-icon"
+								width="20"
+								height="20"
+								viewBox="0 0 24 24"
+								fill="currentColor"
+								stroke="currentColor"
+								stroke-width="2"
+							>
+								<circle cx="12" cy="12" r="5"></circle>
+								<line x1="12" y1="1" x2="12" y2="3"></line>
+								<line x1="12" y1="21" x2="12" y2="23"></line>
+								<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"
+								></line>
+								<line
+									x1="18.36"
+									y1="18.36"
+									x2="19.78"
+									y2="19.78"></line>
+								<line x1="1" y1="12" x2="3" y2="12"></line>
+								<line x1="21" y1="12" x2="23" y2="12"></line>
+								<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"
+								></line>
+								<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"
+								></line>
+							</svg>
+
+							<svg
+								id="theme-toggle-moon"
+								class="theme-icon"
+								width="20"
+								height="20"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+							>
+								<path
+									d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+								></path>
+							</svg>
+						</button>
+					</li>
 				</ul>
 			</div>
 		</nav>
@@ -715,6 +778,26 @@ import "../styles/styles.css"; // Import your CSS here
 			);
 
 			reveals.forEach((el) => observer.observe(el));
+
+			// Add this below your existing Nav scroll and mobile toggle code
+
+			const themeToggleBtn = document.getElementById("theme-toggle");
+
+			const handleToggleClick = () => {
+				const element = document.documentElement;
+				const isDark = element.getAttribute("data-theme") === "dark";
+				const newTheme = isDark ? "light" : "dark";
+
+				// Update the DOM
+				element.setAttribute("data-theme", newTheme);
+
+				// Save to local storage so it remembers on refresh
+				localStorage.setItem("theme", newTheme);
+			};
+
+			if (themeToggleBtn) {
+				themeToggleBtn.addEventListener("click", handleToggleClick);
+			}
 		</script>
 	</body>
 </html>

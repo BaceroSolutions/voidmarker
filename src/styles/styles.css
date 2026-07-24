@@ -904,3 +904,80 @@ section {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
 }
+
+#theme-toggle {
+    background: transparent;
+    position: relative;
+    z-index: 50;
+    /* Forces it above other overlapping elements */
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Optional: Removes the square outline when clicking the button */
+#theme-toggle:focus {
+    outline: none;
+}
+
+.theme-toggle {
+    background: transparent;
+    /* Removes the ugly grey box */
+    border: none;
+    /* If present, removes borders */
+    cursor: pointer;
+    position: relative;
+    z-index: 50;
+
+    /* Perfected focus state */
+    outline: 2px solid var(--nav-link-color, currentColor);
+    /* Use link color */
+    outline-offset: -2px;
+    /* Pulls the outline inside the circular button */
+    border-radius: 50%;
+    /* Ensures the ring is circular */
+    color: var(--text-primary);
+    /* This dynamically changes between light and dark themes */
+}
+
+/* Optional hover state to make it subtle */
+.theme-toggle:hover {
+    box-shadow: 0 0 8px rgba(0, 119, 255, 0.4);
+    /* Subtle glow on hover */
+}
+
+/* Base style for icons */
+.theme-icon {
+    display: block;
+    stroke: currentColor;
+    fill: none;
+}
+#theme-toggle-sun {
+    color: white;
+}
+ 
+/* --- THE LOGIC --- */
+
+/* 1. By default (Light Mode), HIDE the Sun */
+[data-theme="light"] #theme-toggle-sun {
+    display: none;
+}
+
+/* 2. By default (Light Mode), SHOW the Moon */
+[data-theme="light"] #theme-toggle-moon {
+    display: block;
+}
+
+/* 3. When in Dark Mode, SHOW the Sun */
+[data-theme="dark"] #theme-toggle-sun {
+    display: block;
+}
+
+/* 4. When in Dark Mode, HIDE the Moon */
+[data-theme="dark"] #theme-toggle-moon {
+    display: none;
+}
