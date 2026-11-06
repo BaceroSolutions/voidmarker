@@ -11,9 +11,8 @@ export default defineConfig({
 				{
 					label: 'Guides',
 					items: [
-						{ label: 'Place a void', slug: 'docs/mepopeningmarker/guides/place-a-void' },
+						{ label: 'Mark intersections', slug: 'docs/mepopeningmarker/guides/mark-intersections', },
 						{ label: 'Combine voids', slug: 'docs/mepopeningmarker/guides/combine-voids' }
-						// { autogenerate: { directory: 'docs/mepopeningmarker/guides' } }
 					],
 				},
 			],
